@@ -8,7 +8,7 @@ export default function Home() {
           {/* Hero */}
           <div className="space-y-4">
             <div className="inline-block px-4 py-2 bg-blue-100 text-blue-600 rounded-full text-sm font-medium mb-4">
-              Simple Health Knowledge
+              Your Community Healthspace
             </div>
             <h1 className="text-5xl font-bold text-gray-800 leading-tight">
               Welcome to <span className="text-blue-600">BeuHealth</span>
