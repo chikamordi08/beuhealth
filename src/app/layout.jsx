@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
   // Define public routes
   const publicRoutes = ['/login', '/privacy', '/terms']
 
-  const isPublic = publicRoutes.includes(pathname)
+  const isPublic = publicRoutes.some(route => pathname.startsWith(route))
 
   return (
     <html lang="en">

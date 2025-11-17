@@ -12,7 +12,7 @@ export default function Dashboard() {
   const router = useRouter()
 
   useEffect(() => {
-    const stored = sessionStorage.getItem('beuhealthUser')
+    const stored = localStorage.getItem('beuhealthUser')
     if (!stored) router.push('/login')
     else setUser(JSON.parse(stored))
   }, [router])
@@ -46,7 +46,7 @@ export default function Dashboard() {
   }
 
   const handleLogout = () => {
-    sessionStorage.removeItem('beuhealthUser')
+    localStorage.removeItem('beuhealthUser')
     router.push('/login')
   }
 

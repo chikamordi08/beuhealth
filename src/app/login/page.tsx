@@ -18,8 +18,7 @@ export default function LoginPage() {
     )
 
     if (user) {
-      // Simulate a “session” by saving to sessionStorage
-      sessionStorage.setItem('beuhealthUser', JSON.stringify(user))
+      localStorage.setItem('beuhealthUser', JSON.stringify(user))
       if (user.role === 'doctor' || user.role === 'patient') {
         router.push('/dashboard')
       }

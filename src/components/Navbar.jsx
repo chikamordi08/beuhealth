@@ -9,7 +9,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
 
   useEffect(() => {
-    const stored = sessionStorage.getItem('beuhealthUser')
+    const stored = localStorage.getItem('beuhealthUser')
     if (stored) {
       setUser(JSON.parse(stored))
     }
