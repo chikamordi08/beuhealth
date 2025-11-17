@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { Heart, Menu, X } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 export default function Navbar() {
   const [user, setUser] = useState(null)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const router = useRouter()
 
   useEffect(() => {
     const stored = localStorage.getItem('beuhealthUser')
@@ -17,6 +19,12 @@ export default function Navbar() {
 
   const toggleMobile = () => setMobileOpen(!mobileOpen)
 
+  const handleLogout = () => {
+    localStorage.removeItem('beuhealthUser')
+    setUser(null)
+    router.push('/login')
+  }
+
   const navLinks = [
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Contact' },
@@ -26,14 +34,15 @@ export default function Navbar() {
     <nav className="bg-white border-b border-gray-100 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
+          
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <Heart className="w-6 h-6 text-blue-600" strokeWidth={2.5} />
             <span className="font-semibold text-lg text-gray-900">BeuHealth</span>
           </Link>
 
-          {/* Desktop Links */}
-          <div className="hidden md:flex items-center gap-2">
+          {/* Desktop */}
+          <div className="hidden md:flex items-center gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -44,13 +53,31 @@ export default function Navbar() {
               </Link>
             ))}
 
+            {/* When logged in show Dashboard */}
             {user && (
               <Link
                 href="/dashboard"
-                className="ml-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
+                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-lg transition-colors"
               >
                 Dashboard
               </Link>
+            )}
+
+            {/* Login / Logout buttons */}
+            {!user ? (
+              <Link
+                href="/login"
+                className="px-4 py-2 text-blue-600 border border-blue-600 rounded-lg text-sm font-semibold hover:bg-blue-50 transition-colors"
+              >
+                Login
+              </Link>
+            ) : (
+              <button
+                onClick={handleLogout}
+                className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm font-semibold rounded-lg transition-colors"
+              >
+                Logout
+              </button>
             )}
           </div>
 
@@ -78,6 +105,7 @@ export default function Navbar() {
             <X className="w-6 h-6 text-gray-600" />
           </button>
         </div>
+
         <div className="flex flex-col mt-4 space-y-2 px-4">
           {navLinks.map((link) => (
             <Link
@@ -98,6 +126,26 @@ export default function Navbar() {
             >
               Dashboard
             </Link>
+          )}
+
+          {!user ? (
+            <Link
+              href="/login"
+              onClick={() => setMobileOpen(false)}
+              className="px-3 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              Login
+            </Link>
+          ) : (
+            <button
+              onClick={() => {
+                handleLogout()
+                setMobileOpen(false)
+              }}
+              className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors"
+            >
+              Logout
+            </button>
           )}
         </div>
       </div>
