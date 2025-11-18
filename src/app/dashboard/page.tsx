@@ -1,13 +1,18 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { CalendarDays, User, Stethoscope, LogOut } from 'lucide-react'
+import { CalendarDays, User, Stethoscope, LogOut, Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { diseaseData } from "@/data/disease";
+import Link from 'next/link';
+
 
 export default function Dashboard() {
   const [user, setUser] = useState(null)
   const [appointments, setAppointments] = useState([])
   const [doctor, setDoctor] = useState('')
   const [date, setDate] = useState('')
+  const [recentSearches, setRecentSearches] = useState([])
+
 
   const router = useRouter()
 
@@ -16,6 +21,22 @@ export default function Dashboard() {
     if (!stored) router.push('/login')
     else setUser(JSON.parse(stored))
   }, [router])
+
+   useEffect(() => {
+  const allDiseases = Object.entries(diseaseData);
+
+  // Random 4 diseases
+  const randomFour = allDiseases
+    .sort(() => 0.5 - Math.random())
+    .slice(0, 4)
+    .map(([slug, obj]) => ({
+      slug,
+      title: obj.title
+    }));
+
+  setRecentSearches(randomFour);
+}, []);
+
 
   const mockDoctors = [
     'Dr. Lynn Okoro – Cardiology',
@@ -131,6 +152,29 @@ export default function Dashboard() {
               </ul>
             )}
           </div>
+
+          {/* Recent Searches */}
+<div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6">
+  <div className="flex items-center gap-3 mb-4">
+    <Search className="w-5 h-5 text-blue-600" />
+    <h2 className="text-lg font-semibold text-gray-800">Your Recent Searches</h2>
+  </div>
+
+  <ul className="space-y-3">
+    {recentSearches.map((item, i) => (
+      <li key={i}>
+        <Link
+          href={`/disease/english/${item.slug}`}
+          className="text-blue-600 hover:text-blue-800 transition-colors"
+        >
+          {item.title}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</div>
+
+
         </div>
       )}
 

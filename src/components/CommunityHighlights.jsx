@@ -9,7 +9,7 @@ export default function CommunityHighlights({ lang, data }) {
 
   useEffect(() => {
     // Get both slug and disease data
-    const allDiseases = Object.entries(data) // [["malaria", {...}], ["cholera-diarrhea", {...}], ...]
+    const allDiseases = Object.entries(data)
     
     // Randomly pick 5
     const random = allDiseases.sort(() => 0.5 - Math.random()).slice(0, 5)

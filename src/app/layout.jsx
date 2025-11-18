@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   const pathname = usePathname()
 
   // Define public routes
-  const publicRoutes = ['/login', '/privacy', '/terms']
+  const publicRoutes = ['/login', '/privacy', '/terms', '/']
 
   const isPublic = publicRoutes.some(route => pathname.startsWith(route))
 

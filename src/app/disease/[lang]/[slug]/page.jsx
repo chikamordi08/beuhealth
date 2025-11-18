@@ -4,6 +4,7 @@ import { ArrowLeft, AlertCircle, CheckCircle, Activity, Stethoscope, Pill, Shiel
 import TextToSpeech from '@/components/TextToSpeech'
 import CommunityHighlights from '@/components/CommunityHighlights'
 
+
 // Icon mapping for different sections
 const getSectionIcon = (key) => {
   const iconMap = {

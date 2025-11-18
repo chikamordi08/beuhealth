@@ -90,8 +90,8 @@ export default function LoginPage() {
         </form>
 
         <div className="mt-6 text-sm text-gray-500">
-          <p>👨‍⚕️ <strong>Doctor</strong>: doctor@beuhealth.com / doctor123</p>
-          <p>🧑‍🦱 <strong>Patient</strong>: patient@beuhealth.com / patient123</p>
+          <p>👨‍⚕️ <strong>Doctor</strong>: chw@gmail.com / chw123</p>
+          <p>🧑‍🦱 <strong>Patient</strong>: patient@gmail.com / patient123</p>
         </div>
       </div>
     </div>
