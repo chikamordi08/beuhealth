@@ -68,11 +68,29 @@ export default async function DiseasePage({ params }) {
           <div className="mt-4 space-y-6">
             {Object.entries(val).map(([subKey, subVal]) => (
               <div key={subKey} className="pl-6 border-l-2 border-blue-200">
-                <h4 className="font-semibold text-gray-900 mb-2 capitalize">
-                  {subKey.replace(/_/g, ' ')}
-                </h4>
-                {renderValue(subVal)}
-              </div>
+
+  <div className="flex items-center justify-between mb-2">
+    <h4 className="font-semibold text-gray-900 capitalize">
+      {subKey.replace(/_/g, ' ')}
+    </h4>
+
+    {/* Subsection TTS */}
+    <TextToSpeech
+      text={
+        Array.isArray(subVal)
+          ? subVal.join('. ')
+          : typeof subVal === 'object'
+          ? Object.values(subVal)
+              .flatMap(x => (Array.isArray(x) ? x : Object.values(x)))
+              .join('. ')
+          : String(subVal)
+      }
+    />
+  </div>
+
+  {renderValue(subVal)}
+</div>
+
             ))}
           </div>
         )
@@ -144,8 +162,24 @@ export default async function DiseasePage({ params }) {
                   </div>
                 </div>
                 <div className="px-8 py-6">
-                  {renderValue(v)}
-                </div>
+
+  {/* Text-to-Speech for each section */}
+  <div className="flex justify-end mb-4">
+    <TextToSpeech
+      text={
+        Array.isArray(v)
+          ? v.join('. ')
+          : typeof v === 'object'
+          ? Object.values(v)
+              .flatMap(sub => (Array.isArray(sub) ? sub : Object.values(sub)))
+              .join('. ')
+          : String(v)
+      }
+    />
+  </div>
+
+  {renderValue(v)}
+</div>
               </section>
             )
           })}
